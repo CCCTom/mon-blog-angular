@@ -7,8 +7,6 @@ import { PostListItemComponent } from './post-list-item/post-list-item.component
 import {PostService} from './services/post.service';
 import {Route, RouterModule} from '@angular/router';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
