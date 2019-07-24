@@ -1,22 +1,44 @@
+import { Injectable } from '@angular/core';
+import { Post } from '../models/post.model';
+import { Subject } from 'rxjs';
+
+@Injectable()
 export class PostService {
-  posts = [
-    {
-        title: 'Mon premier post',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis fringilla nisi at fermentum vulputate. Praesent elementum dui ac feugiat tempor. Donec sapien sapien, sagittis no',
-        loveIts: 2,
-        created_at: new Date()
-    },
-    {
-        title: 'Mon deuxieme post',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis fringilla nisi at fermentum vulputate. Praesent elementum dui ac feugiat tempor. Donec sapien sapien, sagittis no',
-        loveIts: -1,
-        created_at: new Date()
-    },
-    {
-        title: 'Mon troisime post',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis fringilla nisi at fermentum vulputate. Praesent elementum dui ac feugiat tempor. Donec sapien sapien, sagittis no',
-        loveIts: 0,
-        created_at: new Date()
-    }
+  
+  private posts: Post[] = [
+    new Post('Mon premier post',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis fringilla nisi at fermentum vulputate.',
+      2,
+      new Date(2019, 5, 5, 17, 23)),
+    new Post('Mon deuxieme post',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis fringilla nisi at fermentum vulputate.',
+      -1,
+      new Date(2019, 5, 5, 19, 54)),
+    new Post('Mon troisieme post',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis fringilla nisi at fermentum vulputate.',
+      0,
+      new Date(2019, 5, 6, 12, 12)),
   ];
+  
+  postsSubject = new Subject<Post[]>();
+
+  emitPosts() {
+    this.postsSubject.next(this.posts);
+  }
+
+  addPost() {
+
+  }
+
+  deletePost(post: Post) {
+    const postIndexToRemove = this.posts.findIndex(
+      (postEl) => {
+        if(postEl === post) {
+          return true;
+        }
+      }
+    );
+    this.posts.splice(postIndexToRemove, 1);
+    this.emitPosts();
+  }
 }
