@@ -26,11 +26,11 @@ export class PostListItemComponent implements OnInit {
   }
 
   onLove() {
-    this.post.loveIts += 1;
+    this.postService.likePost(this.post);
   }
 
   onDontLove() {
-    this.post.loveIts -= 1;
+    this.postService.dislikePost(this.post);
   }
 
   onDelete(post: Post) {

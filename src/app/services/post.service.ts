@@ -26,8 +26,9 @@ export class PostService {
     this.postsSubject.next(this.posts);
   }
 
-  addPost() {
-
+  addPost(post: Post) {
+    this.posts.push(post);
+    this.emitPosts();
   }
 
   deletePost(post: Post) {
@@ -39,6 +40,16 @@ export class PostService {
       }
     );
     this.posts.splice(postIndexToRemove, 1);
+    this.emitPosts();
+  }
+
+  likePost(post: Post){
+    post.loveIts += 1;
+    this.emitPosts();
+  }
+
+  dislikePost(post: Post){
+    post.loveIts -= 1;
     this.emitPosts();
   }
 }
